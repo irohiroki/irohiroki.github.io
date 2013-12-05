@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Ruby | irohiroki's blog 2]]></title>
+  <link href="http://irohiroki.github.io/blog/categories/ruby/atom.xml" rel="self"/>
+  <link href="http://irohiroki.github.io/"/>
+  <updated>2013-12-04T20:56:58+09:00</updated>
+  <id>http://irohiroki.github.io/</id>
+  <author>
+    <name><![CDATA[Hiroki Yoshioka]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[おれのさぶらいむてきすとのRuby小技]]></title>
+    <link href="http://irohiroki.github.io/blog/2013/12/05/my-sublime-text-ruby-block-converter/"/>
+    <updated>2013-12-05T00:00:00+09:00</updated>
+    <id>http://irohiroki.github.io/blog/2013/12/05/my-sublime-text-ruby-block-converter</id>
+    <content type="html"><![CDATA[<p>このエントリは<a href="http://www.adventar.org/calendars/184">おれのさぶらいむてきすと Advent Calendar 2013</a>の5日目です。昨日は<a href="https://twitter.com/s12bt">@s12bt</a>さんの<a href="http://blog.obentoba.co/entry/2013/12/04/sublimetext-japaneseSearch">おれのさぶらいむてきすとは日本語検索がうまくできない</a>でした。</p>
+
+<p>今日は<a href="https://twitter.com/irohiroki">いろ</a>がRubyで使える小技を紹介します。</p>
+
+<p>ご存知の通り、Rubyではブロックを以下の2つの形で書くことができます。</p>
+
+<h5>do end</h5>
+
+<p><code>ruby
+foo do
+  bar
+end
+</code></p>
+
+<h5>ブレース</h5>
+
+<p><code>ruby
+foo {
+  bar
+}
+</code></p>
+
+<p>ブレースの中が1行の時は、下のように書くことも多いと思います。</p>
+
+<p><code>ruby
+foo { bar }
+</code></p>
+
+<p>仕様上は<code>do end</code>の方が<code>{}</code>より評価の優先順位が低いだけですが、読んだ時の印象が違うため、使い分けてるRubyistも多いはずです。</p>
+
+<p>そして、最初は<code>do end</code>で書いたけどやっぱり<code>{}</code>にしたいとか、<code>{}</code>で書いたけど<code>do end</code>にしたいことって意外とあるんですよね。</p>
+
+<p>でも、実際にやるとちょっと面倒です。<code>do</code>まで行って<code>{</code>に直して、<code>end</code>まで行って<code>}</code>に直して。<code>{}</code>にしてみたら1行にしたくなって、改行も消したり。それなのに、後でやっぱり<code>do end</code>がよかった、なんてことになると本当に最悪です。</p>
+
+<p>そこでおすすめしたいのが、<a href="https://sublime.wbond.net/packages/Ruby%20Block%20Converter">Ruby Block Converter</a>というプラグイン。Package Controlでインストールしたら、変換したい<code>do</code>と<code>end</code>の間にカーソルを移動しましょう。</p>
+
+<p><code>ruby
+foo do
+  bar # このへんにカーソルを。
+end
+</code></p>
+
+<p>そして <strong>ctrl + shift + [</strong> すると!!!</p>
+
+<p><code>ruby
+foo { bar }
+</code></p>
+
+<p>こうなります!! すごい!!! 一瞬!!!!</p>
+
+<p>もちろん逆もできます。それどころか、ブロック引数があってもできます。例えば</p>
+
+<p><code>ruby
+array.each{|e| some_method(e) }
+</code></p>
+
+<p>だったら、<code>{}</code>の間にカーソルを移動して <strong>ctrl + shift + ]</strong> !!!</p>
+
+<p><code>ruby
+array.each do |e|
+  some_method(e)
+end
+</code></p>
+
+<p>おおー!! 便利!!! インデントもちゃんと自分の設定に合わせてくれるんですね!!!</p>
+
+<p>なお、<code>do end</code>から<code>{}</code>にしたとき1行になるのは、元が3行のときだけです。つまり、</p>
+
+<p><code>ruby
+foo do
+  bar
+  baz
+end
+</code></p>
+
+<p>のように4行以上のときは</p>
+
+<p><code>ruby
+foo {
+  bar
+  baz
+}
+</code></p>
+
+<p>になります。なんて頭がいいんでしょう……</p>
+
+<p>もちろんSublime Textですから、カーソルが複数あっても大丈夫です!! 全てのカーソルの場所でブロックを変換してくれます!!!</p>
+
+<p>Rubyを使う人は是非Ruby Block Converterをインストールして、この気持ちよさを味わってくださいね!!!</p>
+
+<p>明日は<a href="https://twitter.com/kei_q">@kei_q</a>さんです。よろしくお願いします！</p>
+]]></content>
+  </entry>
+  
+</feed>
