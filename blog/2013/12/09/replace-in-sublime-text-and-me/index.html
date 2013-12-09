@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>おれとさぶらいむてきすとの置換 - irohiroki's blog 2</title>
+  <meta name="author" content="Hiroki Yoshioka">
+
+  
+  <meta name="description" content="このエントリはおれのさぶらいむてきすと Advent Calendar 2013の9日目です。昨日は@jugyoさんのおれのさぶらいむてきすとのカラースキーマでした。 今日はSublime Textにおける置換について考えてみます。 普通の置換 ご存知の通り、 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://irohiroki.github.io/blog/2013/12/09/replace-in-sublime-text-and-me">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="irohiroki's blog 2" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">irohiroki's blog 2</a></h1>
+  
+    <h2>Web apps and Geekies</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:irohiroki.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">おれとさぶらいむてきすとの置換</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-09T10:27:32+09:00" pubdate data-updated="true">Dec 9<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>このエントリは<a href="http://www.adventar.org/calendars/184">おれのさぶらいむてきすと Advent Calendar 2013</a>の9日目です。昨日は<a href="https://twitter.com/jugyo">@jugyo</a>さんの<a href="https://gist.github.com/jugyo/7865134">おれのさぶらいむてきすとのカラースキーマ</a>でした。</p>
+
+<p>今日はSublime Textにおける置換について考えてみます。</p>
+
+<h2>普通の置換</h2>
+
+<p>ご存知の通り、置換というのはドキュメントの中の特定の文字列を全て一度に新しい文字列で置き換える編集操作です。これができないテキストエディタというのは聞いたことがなくて、もちろんSublime Textでも opt + cmd + f で置換フォームが表示されます。</p>
+
+<p><img src="/images/sublime_text_replace_form.png" alt="replace form" /></p>
+
+<p>さらにSublime Textでは、検索する文字列を正規表現で書いたり、大文字と小文字を区別するか選べたりします。ですが、Sublime Textの真価はそこではありません。</p>
+
+<h2>複数カーソル</h2>
+
+<p>Sublime Textと言えばこれです。カーソルが分身して、それぞれの場所で同一の編集をしてくれる機能です。つまり、2箇所に書かれてる「regist」にそれぞれカーソルを置いて、「register」に書き換えたりできるわけです。</p>
+
+<p>一度これを人に説明したら、「それ置換でいいよね？」と言われました。確かに簡単な例だと置換でいいんですが、もっと複雑なこともあります。</p>
+
+<p><a href="http://jigokuno.com/?eid=543"><img src="http://jigokuno.img.jugem.jp/20101228_2025149.gif" alt="惚れさせ517 「君たち」 若いね 若いね 若いねー" /></a></p>
+
+<p>置換より複数カーソルが優れているのは <strong>編集の過程を見ながら入力できる</strong> ところです。例えば、</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">foo</span><span class="p">(</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span><span class="p">);</span>
+</span><span class='line'><span class="nx">foo</span><span class="p">(</span><span class="nx">c</span> <span class="o">+</span> <span class="nx">d</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>を</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">bar</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">);</span>
+</span><span class='line'><span class="nx">bar</span><span class="p">(</span><span class="nx">c</span><span class="p">,</span> <span class="nx">d</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>に直すとしたら、どうしますか？置換したいところと残したいところが混ざってて、考えるのが面倒な例です。</p>
+
+<p>2行ぐらいだったら素朴に1つずつ手作業で編集する人が多いかもしれません。でも、20行だったらどうですか？200行だったら？</p>
+
+<p>Vimなら <code>:%s/foo.\(.\)...\(.\)/bar(\1, \2/</code> と打てば実現できますが、これを打つのも考えるのも面倒です。たぶん1度ぐらい間違えてやり直すのではないでしょうか。Emacsは使い込んだことがないので分かりません。</p>
+
+<p>Sublime Textならこんな感じ。</p>
+
+<p><img src="/images/sublime_text_multiple_selection_demo.gif" alt="multiple selection demo" /></p>
+
+<p>最初に ctrl + cmd + g という、カーソル下の単語を全て選択するショーカットを使っています。その後は「bar」に書き換えてカーソル移動して「 +」を「,」に直してるだけですね。</p>
+
+<p>このようにSublime Textでは複数のカーソルを使うことでインタラクティブに置換操作をできます。2回に分けて置換したり、正規表現を考えたりする必要がないわけです。便利ですね!!!</p>
+
+<p>複数の選択範囲を作る方法は ctrl + cmd + g 以外にもあるので、また別の日に紹介したいと思います。明日は<a href="https://twitter.com/s12bt">@s12bt</a>さんです。よろしくお願いします！</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hiroki Yoshioka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-09T10:27:32+09:00" pubdate data-updated="true">Dec 9<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/sublimetext/'>SublimeText</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://irohiroki.github.io/blog/2013/12/09/replace-in-sublime-text-and-me/" data-via="" data-counturl="http://irohiroki.github.io/blog/2013/12/09/replace-in-sublime-text-and-me/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/05/my-sublime-text-ruby-block-converter/" title="Previous Post: おれのさぶらいむてきすとのRuby小技">&laquo; おれのさぶらいむてきすとのRuby小技</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/09/replace-in-sublime-text-and-me/">おれとさぶらいむてきすとの置換</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/05/my-sublime-text-ruby-block-converter/">おれのさぶらいむてきすとのRuby小技</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Hiroki Yoshioka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

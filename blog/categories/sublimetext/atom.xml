@@ -4,7 +4,7 @@
   <title><![CDATA[Category: SublimeText | irohiroki's blog 2]]></title>
   <link href="http://irohiroki.github.io/blog/categories/sublimetext/atom.xml" rel="self"/>
   <link href="http://irohiroki.github.io/"/>
-  <updated>2013-12-04T20:56:58+09:00</updated>
+  <updated>2013-12-09T10:29:17+09:00</updated>
   <id>http://irohiroki.github.io/</id>
   <author>
     <name><![CDATA[Hiroki Yoshioka]]></name>
@@ -12,6 +12,63 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[おれとさぶらいむてきすとの置換]]></title>
+    <link href="http://irohiroki.github.io/blog/2013/12/09/replace-in-sublime-text-and-me/"/>
+    <updated>2013-12-09T10:27:32+09:00</updated>
+    <id>http://irohiroki.github.io/blog/2013/12/09/replace-in-sublime-text-and-me</id>
+    <content type="html"><![CDATA[<p>このエントリは<a href="http://www.adventar.org/calendars/184">おれのさぶらいむてきすと Advent Calendar 2013</a>の9日目です。昨日は<a href="https://twitter.com/jugyo">@jugyo</a>さんの<a href="https://gist.github.com/jugyo/7865134">おれのさぶらいむてきすとのカラースキーマ</a>でした。</p>
+
+<p>今日はSublime Textにおける置換について考えてみます。</p>
+
+<h2>普通の置換</h2>
+
+<p>ご存知の通り、置換というのはドキュメントの中の特定の文字列を全て一度に新しい文字列で置き換える編集操作です。これができないテキストエディタというのは聞いたことがなくて、もちろんSublime Textでも opt + cmd + f で置換フォームが表示されます。</p>
+
+<p><img src="/images/sublime_text_replace_form.png" alt="replace form" /></p>
+
+<p>さらにSublime Textでは、検索する文字列を正規表現で書いたり、大文字と小文字を区別するか選べたりします。ですが、Sublime Textの真価はそこではありません。</p>
+
+<h2>複数カーソル</h2>
+
+<p>Sublime Textと言えばこれです。カーソルが分身して、それぞれの場所で同一の編集をしてくれる機能です。つまり、2箇所に書かれてる「regist」にそれぞれカーソルを置いて、「register」に書き換えたりできるわけです。</p>
+
+<p>一度これを人に説明したら、「それ置換でいいよね？」と言われました。確かに簡単な例だと置換でいいんですが、もっと複雑なこともあります。</p>
+
+<p><a href="http://jigokuno.com/?eid=543"><img src="http://jigokuno.img.jugem.jp/20101228_2025149.gif" alt="惚れさせ517 「君たち」 若いね 若いね 若いねー" /></a></p>
+
+<p>置換より複数カーソルが優れているのは <strong>編集の過程を見ながら入力できる</strong> ところです。例えば、</p>
+
+<p><code>javascript
+foo(a + b);
+foo(c + d);
+</code></p>
+
+<p>を</p>
+
+<p><code>javascript
+bar(a, b);
+bar(c, d);
+</code></p>
+
+<p>に直すとしたら、どうしますか？置換したいところと残したいところが混ざってて、考えるのが面倒な例です。</p>
+
+<p>2行ぐらいだったら素朴に1つずつ手作業で編集する人が多いかもしれません。でも、20行だったらどうですか？200行だったら？</p>
+
+<p>Vimなら <code>:%s/foo.\(.\)...\(.\)/bar(\1, \2/</code> と打てば実現できますが、これを打つのも考えるのも面倒です。たぶん1度ぐらい間違えてやり直すのではないでしょうか。Emacsは使い込んだことがないので分かりません。</p>
+
+<p>Sublime Textならこんな感じ。</p>
+
+<p><img src="/images/sublime_text_multiple_selection_demo.gif" alt="multiple selection demo" /></p>
+
+<p>最初に ctrl + cmd + g という、カーソル下の単語を全て選択するショーカットを使っています。その後は「bar」に書き換えてカーソル移動して「 +」を「,」に直してるだけですね。</p>
+
+<p>このようにSublime Textでは複数のカーソルを使うことでインタラクティブに置換操作をできます。2回に分けて置換したり、正規表現を考えたりする必要がないわけです。便利ですね!!!</p>
+
+<p>複数の選択範囲を作る方法は ctrl + cmd + g 以外にもあるので、また別の日に紹介したいと思います。明日は<a href="https://twitter.com/s12bt">@s12bt</a>さんです。よろしくお願いします！</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[おれのさぶらいむてきすとのRuby小技]]></title>
