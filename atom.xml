@@ -4,7 +4,7 @@
   <title><![CDATA[irohiroki's blog 2]]></title>
   <link href="http://irohiroki.github.io/atom.xml" rel="self"/>
   <link href="http://irohiroki.github.io/"/>
-  <updated>2013-12-13T09:19:16+09:00</updated>
+  <updated>2013-12-13T09:21:06+09:00</updated>
   <id>http://irohiroki.github.io/</id>
   <author>
     <name><![CDATA[Hiroki Yoshioka]]></name>
@@ -18,7 +18,7 @@
     <link href="http://irohiroki.github.io/blog/2013/12/13/sublime-texts-multiple-selection-and-me/"/>
     <updated>2013-12-13T12:24:25+09:00</updated>
     <id>http://irohiroki.github.io/blog/2013/12/13/sublime-texts-multiple-selection-and-me</id>
-    <content type="html"><![CDATA[<p>このエントリは<a href="http://www.adventar.org/calendars/184">おれのさぶらいむてきすと Advent Calendar 2013</a>の13日目です。昨日は<a href="https://twitter.com/jugyo">@jugyo</a> さんのでした。</p>
+    <content type="html"><![CDATA[<p>このエントリは<a href="http://www.adventar.org/calendars/184">おれのさぶらいむてきすと Advent Calendar 2013</a>の13日目です。昨日は<a href="https://twitter.com/jugyo">@jugyo</a> さんの<a href="https://gist.github.com/jugyo/7927709">おれのさぶらいむてきすとのスニペット作成 &ndash; SnippetMaker プラグイン</a>でした。</p>
 
 <p>今日は<a href="http://irohiroki.github.io/blog/2013/12/09/replace-in-sublime-text-and-me/">置換の話</a>の続きとして、複数選択のやり方について書いてみます。</p>
 
