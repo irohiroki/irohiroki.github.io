@@ -4,7 +4,7 @@
   <title><![CDATA[irohiroki's blog 2]]></title>
   <link href="http://irohiroki.github.io/atom.xml" rel="self"/>
   <link href="http://irohiroki.github.io/"/>
-  <updated>2013-12-09T11:06:02+09:00</updated>
+  <updated>2013-12-13T09:19:16+09:00</updated>
   <id>http://irohiroki.github.io/</id>
   <author>
     <name><![CDATA[Hiroki Yoshioka]]></name>
@@ -12,6 +12,65 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[おれとさぶらいむてきすとの複数選択]]></title>
+    <link href="http://irohiroki.github.io/blog/2013/12/13/sublime-texts-multiple-selection-and-me/"/>
+    <updated>2013-12-13T12:24:25+09:00</updated>
+    <id>http://irohiroki.github.io/blog/2013/12/13/sublime-texts-multiple-selection-and-me</id>
+    <content type="html"><![CDATA[<p>このエントリは<a href="http://www.adventar.org/calendars/184">おれのさぶらいむてきすと Advent Calendar 2013</a>の13日目です。昨日は<a href="https://twitter.com/jugyo">@jugyo</a> さんのでした。</p>
+
+<p>今日は<a href="http://irohiroki.github.io/blog/2013/12/09/replace-in-sublime-text-and-me/">置換の話</a>の続きとして、複数選択のやり方について書いてみます。</p>
+
+<h3>^⌘G</h3>
+
+<p>このショートカットはFindメニューの中にある <strong>Quick Find All</strong> というもので、カーソルが乗ってる単語をファイル内で全て見つけて選択します。WindowsとLinuxの人は⌘の代わりにWindowsキーです。実際の動作は<a href="http://irohiroki.github.io/blog/2013/12/09/replace-in-sublime-text-and-me/">前回</a>アニメGIFで紹介してますので、よかったら参考にしてください。</p>
+
+<p>Quick Find Allは単純に単語を選択するときは最強ですが、単語と記号が混じってる範囲を選択するとか、ファイル全体ではなく一部から選択するといった時には向いていません。</p>
+
+<h3>⇧⌘L</h3>
+
+<p>これはSelectionメニューの中にある <strong>Split into Lines</strong> というショーカットで、複数行を1つの範囲として選択しているとき、それを行毎に別の選択範囲にしてくれます。例えば</p>
+
+<p><img src="http://irohiroki.github.io/images/sublime-text-multiline-single-selection.png" alt="複数行単一選択" /></p>
+
+<p>を</p>
+
+<p><img src="http://irohiroki.github.io/images/sublime-text-split-into-lines.png" alt="Split into lines" /></p>
+
+<p>にしれくれます。どういう時に使うかというと、僕はとりあえず選択範囲の全ての行にカーソルが欲しいときに使ってます。その後に選択範囲を直したり、カーソルを移動したり、実際に変化を見ながら操作してます。</p>
+
+<h3>⌘D / ⌘K, ⌘D / ⌘U</h3>
+
+<p>⌘DはSelectionメニューの <strong>Expand Selection to Word</strong> ですが、何か選択してる時としてない時では動作が違います。何か選択してる時は、その選択範囲と同じ文字列を探して2つ目の選択範囲にします。何も選択してないときは、カーソルの乗ってる単語を選択します。</p>
+
+<p>よって、英数字だろうが日本語だろうが記号が混ざってようが、何か複数選択したいときはとりあえず1つ目を手作業で選択し、あとは <strong>⌘Dで増やしていける</strong> ことになります。</p>
+
+<p>⌘K, ⌘Dは、⌘Kの後に⌘Dを押すという意味で、⌘Dで増やした選択を解除して、次の一致する文字列を選択します。つまり <strong>1つ飛ばして次を選択できる</strong> ということです。</p>
+
+<p>⌘Dは、複数選択に限らず、カーソルや選択範囲の状態を <strong>1つ前に戻す（Undo）</strong> ショーカットです。</p>
+
+<p>これらを組み合わせるとかなり自由に選択範囲を増やしていけます。例を見てみましょう。</p>
+
+<p><img src="http://irohiroki.github.io/images/sublime_text_super+d.gif" alt="super + d" /></p>
+
+<ol>
+<li>最初の「”」を選択</li>
+<li>次の「”」は飛ばす</li>
+<li>3個目の「”」を選択</li>
+<li>4個目の「”」はUndo</li>
+</ol>
+
+
+<p>という操作で最終的に2個の選択範囲を作っています。この選択方法では一つ一つ選択するか否か選べますが、その半面時間がかかりますね。</p>
+
+<h3>まとめ</h3>
+
+<p>Sublime Textの特長である複数選択を作り出す方法はいくつもあります。状況に合わせて使い分けられれば効率的でしょう。</p>
+
+<p>最後にお願いです。 <strong>正規表現でファイル全体から選択する方法</strong> を知ってる人は教えてください!!!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[コーディングにおける「深いレベルの『創造』」について]]></title>

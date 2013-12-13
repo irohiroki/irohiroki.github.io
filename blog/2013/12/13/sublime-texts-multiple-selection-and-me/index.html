@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>おれとさぶらいむてきすとの複数選択 - irohiroki's blog 2</title>
+  <meta name="author" content="Hiroki Yoshioka">
+
+  
+  <meta name="description" content="このエントリはおれのさぶらいむてきすと Advent Calendar 2013の13日目です。昨日は@jugyo さんのでした。 今日は置換の話の続きとして、複数選択のやり方について書いてみます。 ^⌘G このショートカットはFindメニューの中にある Quick Find All というもので &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://irohiroki.github.io/blog/2013/12/13/sublime-texts-multiple-selection-and-me">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="irohiroki's blog 2" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">irohiroki's blog 2</a></h1>
+  
+    <h2>Web apps and Geekies</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:irohiroki.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">おれとさぶらいむてきすとの複数選択</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-13T12:24:25+09:00" pubdate data-updated="true">Dec 13<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>このエントリは<a href="http://www.adventar.org/calendars/184">おれのさぶらいむてきすと Advent Calendar 2013</a>の13日目です。昨日は<a href="https://twitter.com/jugyo">@jugyo</a> さんのでした。</p>
+
+<p>今日は<a href="http://irohiroki.github.io/blog/2013/12/09/replace-in-sublime-text-and-me/">置換の話</a>の続きとして、複数選択のやり方について書いてみます。</p>
+
+<h3>^⌘G</h3>
+
+<p>このショートカットはFindメニューの中にある <strong>Quick Find All</strong> というもので、カーソルが乗ってる単語をファイル内で全て見つけて選択します。WindowsとLinuxの人は⌘の代わりにWindowsキーです。実際の動作は<a href="http://irohiroki.github.io/blog/2013/12/09/replace-in-sublime-text-and-me/">前回</a>アニメGIFで紹介してますので、よかったら参考にしてください。</p>
+
+<p>Quick Find Allは単純に単語を選択するときは最強ですが、単語と記号が混じってる範囲を選択するとか、ファイル全体ではなく一部から選択するといった時には向いていません。</p>
+
+<h3>⇧⌘L</h3>
+
+<p>これはSelectionメニューの中にある <strong>Split into Lines</strong> というショーカットで、複数行を1つの範囲として選択しているとき、それを行毎に別の選択範囲にしてくれます。例えば</p>
+
+<p><img src="/images/sublime-text-multiline-single-selection.png" alt="複数行単一選択" /></p>
+
+<p>を</p>
+
+<p><img src="/images/sublime-text-split-into-lines.png" alt="Split into lines" /></p>
+
+<p>にしれくれます。どういう時に使うかというと、僕はとりあえず選択範囲の全ての行にカーソルが欲しいときに使ってます。その後に選択範囲を直したり、カーソルを移動したり、実際に変化を見ながら操作してます。</p>
+
+<h3>⌘D / ⌘K, ⌘D / ⌘U</h3>
+
+<p>⌘DはSelectionメニューの <strong>Expand Selection to Word</strong> ですが、何か選択してる時としてない時では動作が違います。何か選択してる時は、その選択範囲と同じ文字列を探して2つ目の選択範囲にします。何も選択してないときは、カーソルの乗ってる単語を選択します。</p>
+
+<p>よって、英数字だろうが日本語だろうが記号が混ざってようが、何か複数選択したいときはとりあえず1つ目を手作業で選択し、あとは <strong>⌘Dで増やしていける</strong> ことになります。</p>
+
+<p>⌘K, ⌘Dは、⌘Kの後に⌘Dを押すという意味で、⌘Dで増やした選択を解除して、次の一致する文字列を選択します。つまり <strong>1つ飛ばして次を選択できる</strong> ということです。</p>
+
+<p>⌘Dは、複数選択に限らず、カーソルや選択範囲の状態を <strong>1つ前に戻す（Undo）</strong> ショーカットです。</p>
+
+<p>これらを組み合わせるとかなり自由に選択範囲を増やしていけます。例を見てみましょう。</p>
+
+<p><img src="/images/sublime_text_super+d.gif" alt="super + d" /></p>
+
+<ol>
+<li>最初の「”」を選択</li>
+<li>次の「”」は飛ばす</li>
+<li>3個目の「”」を選択</li>
+<li>4個目の「”」はUndo</li>
+</ol>
+
+
+<p>という操作で最終的に2個の選択範囲を作っています。この選択方法では一つ一つ選択するか否か選べますが、その半面時間がかかりますね。</p>
+
+<h3>まとめ</h3>
+
+<p>Sublime Textの特長である複数選択を作り出す方法はいくつもあります。状況に合わせて使い分けられれば効率的でしょう。</p>
+
+<p>最後にお願いです。 <strong>正規表現でファイル全体から選択する方法</strong> を知ってる人は教えてください!!!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hiroki Yoshioka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-13T12:24:25+09:00" pubdate data-updated="true">Dec 13<span>th</span>, 2013</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/sublimetext/'>SublimeText</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://irohiroki.github.io/blog/2013/12/13/sublime-texts-multiple-selection-and-me/" data-via="" data-counturl="http://irohiroki.github.io/blog/2013/12/13/sublime-texts-multiple-selection-and-me/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/12/09/deep-level-creative-act-in-coding/" title="Previous Post: コーディングにおける「深いレベルの『創造』」について">&laquo; コーディングにおける「深いレベルの『創造』」について</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/13/sublime-texts-multiple-selection-and-me/">おれとさぶらいむてきすとの複数選択</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/09/deep-level-creative-act-in-coding/">コーディングにおける「深いレベルの『創造』」について</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/09/replace-in-sublime-text-and-me/">おれとさぶらいむてきすとの置換</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/05/my-sublime-text-ruby-block-converter/">おれのさぶらいむてきすとのRuby小技</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Hiroki Yoshioka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
