@@ -5,7 +5,7 @@ date: 2013-12-13 12:24:25 +0900
 comments: false
 categories: SublimeText
 ---
-このエントリは[おれのさぶらいむてきすと Advent Calendar 2013](http://www.adventar.org/calendars/184)の13日目です。昨日は[@jugyo](https://twitter.com/jugyo) さんのでした。
+このエントリは[おれのさぶらいむてきすと Advent Calendar 2013](http://www.adventar.org/calendars/184)の13日目です。昨日は[@jugyo](https://twitter.com/jugyo) さんの[おれのさぶらいむてきすとのスニペット作成 - SnippetMaker プラグイン](https://gist.github.com/jugyo/7927709)でした。
 
 今日は[置換の話](http://irohiroki.github.io/blog/2013/12/09/replace-in-sublime-text-and-me/)の続きとして、複数選択のやり方について書いてみます。
 
