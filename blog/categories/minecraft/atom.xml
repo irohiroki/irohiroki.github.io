@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Minecraft | irohiroki's blog 2]]></title>
+  <link href="http://irohiroki.github.io/blog/categories/minecraft/atom.xml" rel="self"/>
+  <link href="http://irohiroki.github.io/"/>
+  <updated>2014-02-18T19:16:26+09:00</updated>
+  <id>http://irohiroki.github.io/</id>
+  <author>
+    <name><![CDATA[Hiroki Yoshioka]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Minecraftプラグインを書いて動かすまで]]></title>
+    <link href="http://irohiroki.github.io/blog/2014/02/18/craftbukkit-plugin-chicken-launcher/"/>
+    <updated>2014-02-18T19:10:42+09:00</updated>
+    <id>http://irohiroki.github.io/blog/2014/02/18/craftbukkit-plugin-chicken-launcher</id>
+    <content type="html"><![CDATA[<p>世界中で大人気の<a href="https://minecraft.net/">Minecraft</a>には<a href="https://dl.bukkit.org/">CraftBukkit</a>というクローンがあります。CraftBukkitはオープンソースで、プラグイン向けのAPIも用意されているので、MinecraftそのものをクラックするいわゆるMODより安心して拡張できます。このエントリではCraftBukkitをセットアップし、自分で書いたプラグインをインストールして動かす流れを紹介します。</p>
+
+<p>なお、PC版のMinecraftが動作していることを前提としています。</p>
+
+<h2>1. CraftBukkit</h2>
+
+<p>Minecraftのシステムはサーバとクライアントに分かれていますが、CraftBukkitはサーバのクローンです。まずはプラグインなしでそのまま動かしてみましょう。手順は<a href="http://wiki.bukkit.org/Setting_up_a_server">Setting up a server &ndash; BukkitWiki</a>に書かれています。手順といっても、ダウンロードして実行するだけです。</p>
+
+<h3>1-1. ダウンロード</h3>
+
+<p>一般的なオープンソースのソフトウェアと同様に安定版と開発版がありますが、安定版は<a href="https://dl.bukkit.org/downloads/craftbukkit/list/rb/">CraftBukkit | Bukkit</a>からダウンロードできます。バージョン番号はMinecraftのものと対応します。つまり、1.6.2のCraftBukkitを使うときは、Minecraft（クライアント）も1.6.2で起動しなければなりません（後述）。</p>
+
+<h3>1-2. 起動</h3>
+
+<p>ダウンロードしたら<a href="http://wiki.bukkit.org/Setting_up_a_server">Setting up a server &ndash; BukkitWiki</a>に書かれてるjavaコマンドで起動しましょう。ここではダウンロードしたファイルを<code>~/Desktop/server/craftbukkit.jar</code>に改名したと仮定します。</p>
+
+<pre><code>java -Xmx1024M -jar ~/Desktop/server/craftbukkit.jar -o true
+</code></pre>
+
+<p>数十行のメッセージの後にコマンドプロンプトが表示されて入力待ちになります。これでMinecraftクライアントから接続できるはずです。</p>
+
+<h3>1-3. 接続</h3>
+
+<p>MinecraftはProfileを編集することで起動するバージョンを選択できますが、<strong>CraftBukkitと同じバージョンを選ぶ</strong>のを忘れないでください。MinecraftLauncherの画面で「Edit Profile」ボタンを押して、「Use version」ドロップダウンリストの中から選べます。</p>
+
+<p>Minecraftが起動したら「マルチプレイ」を選択し、「サーバー追加」を押します。「サーバーアドレス」に<code>localhost</code>と書いて「完了」を押せば、サーバ一覧にCraftBukkitサーバが現れるはずです。それを選択して「サーバーに接続」しましょう。</p>
+
+<p>本物のMinecraftと同じようにゲームを始められれば大丈夫です。切断し、CraftBukkitのコマンドプロンプトで<code>stop</code>を実行して終了してください。</p>
+
+<h2>2. JDK</h2>
+
+<p>プラグインをコンパイルするためにJava SE Development Kitが必要です。<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java SE &ndash; Downloads</a>からダウンロード、インストールしてください。以下のようにjavacが実行できれば大丈夫です（実行結果は違うかもしれません）。</p>
+
+<pre><code>$ javac -version
+javac 1.6.0_65
+</code></pre>
+
+<h2>3. プラグインのコンパイルとインストール</h2>
+
+<p>いよいよプラグインをインストールします。ここでは私が実験的に作った<a href="https://github.com/irohiroki/ChickenLauncher">ChickenLauncher</a>を使って説明します。</p>
+
+<h3>3-1. ダウンロード</h3>
+
+<p><a href="https://github.com/irohiroki/ChickenLauncher/archive/master.zip">zipファイルをダウンロード</a>できます。GitHubをご存知の方は、もちろん好きな方法でダウンロードして構いません。</p>
+
+<h3>3-2. コンパイル</h3>
+
+<p>コンパイル方法は<a href="https://github.com/irohiroki/ChickenLauncher/blob/master/README.md">README</a>に書いてある通りです。つまり、下のようなjavacコマンドを実行します：</p>
+
+<pre><code>javac src/*.java -d bin -classpath ~/Desktop/server/craftbukkit.jar -sourcepath src
+</code></pre>
+
+<p><code>bin/chickenlauncher/ChickenLauncher.class</code>が生成されるはずです。プラグインとしてはこれをjarファイルにする必要があります。コマンドは下の通りです。</p>
+
+<pre><code>jar -cf dist/ChickenLauncher.jar *.yml -C bin .
+</code></pre>
+
+<p><code>dist/ChickenLauncher.jar</code>が生成されます。</p>
+
+<h3>3-3. インストール</h3>
+
+<p>CraftBukkitにはプラグイン用のディレクトリがあり、そこにjarファイルを入れれば完了です。プラグイン用のディレクトリはCraftBukkitを起動したときにcraftbukkit.jarと同じディレクトリに<code>plugins</code>という名前で生成されているはずです。前出の例だと、次のようになります。</p>
+
+<pre><code>cp dist/ChickenLauncher.jar ~/Desktop/server/plugins
+</code></pre>
+
+<p>これで完了です。最初と同じようにCraftBukkitを起動し、羊毛を手に持って空中を左クリックしてみてください。羊毛からニワトリが飛び出すはずです。</p>
+
+<iframe width="560" height="315" src="http://irohiroki.github.io//www.youtube.com/embed/IHxXTrZ6i-M" frameborder="0" allowfullscreen></iframe>
+
+
+<p>なお、ゲームをクリエイティブモードにするには、CraftBukkitのコンソールで下のコマンドを実行します。</p>
+
+<pre><code>gamemode creative ユーザ名
+</code></pre>
+
+<h2>クライアントを改造したい？</h2>
+
+<p>以上のように、CraftBukkitを使うとMODに比べて安心してMinecraftを拡張できるのですが、変えられるのはサーバ側だけになります。つまり、新しいキーバインディングを設定したりアイテムの見た目を変更したりはできません。</p>
+
+<p>でも落胆しないでください。CraftBukkitと対になるクライアント側のソフトとして、<a href="http://spoutcraft.org/">SpoutCraft</a>があります。これはクライアントを拡張するMODですが、特徴的なのは拡張モジュールをサーバ側のCraftBukkitからロードすることです。つまり、サーバにプラグインを置くと、自動的にクライアントに配信・インストールされるのです。これでクライアント側を改造できるだけでなく、仲間内でサーバを立てて遊ぶときにとても便利になるでしょう。今後、SpoutCraftについても検証して紹介したいと思います。</p>
+]]></content>
+  </entry>
+  
+</feed>

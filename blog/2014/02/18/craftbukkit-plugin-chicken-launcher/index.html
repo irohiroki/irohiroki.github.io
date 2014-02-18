@@ -1,0 +1,297 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Minecraftプラグインを書いて動かすまで - irohiroki's blog 2</title>
+  <meta name="author" content="Hiroki Yoshioka">
+
+  
+  <meta name="description" content="世界中で大人気のMinecraftにはCraftBukkitというクローンがあります。CraftBukkitはオープンソースで、プラグイン向けのAPIも用意されているので、MinecraftそのものをクラックするいわゆるMODより安心して拡張できます。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://irohiroki.github.io/blog/2014/02/18/craftbukkit-plugin-chicken-launcher">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="irohiroki's blog 2" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">irohiroki's blog 2</a></h1>
+  
+    <h2>Web apps and Geekies</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:irohiroki.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Minecraftプラグインを書いて動かすまで</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-18T19:10:42+09:00" pubdate data-updated="true">Feb 18<span>th</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>世界中で大人気の<a href="https://minecraft.net/">Minecraft</a>には<a href="https://dl.bukkit.org/">CraftBukkit</a>というクローンがあります。CraftBukkitはオープンソースで、プラグイン向けのAPIも用意されているので、MinecraftそのものをクラックするいわゆるMODより安心して拡張できます。このエントリではCraftBukkitをセットアップし、自分で書いたプラグインをインストールして動かす流れを紹介します。</p>
+
+<p>なお、PC版のMinecraftが動作していることを前提としています。</p>
+
+<h2>1. CraftBukkit</h2>
+
+<p>Minecraftのシステムはサーバとクライアントに分かれていますが、CraftBukkitはサーバのクローンです。まずはプラグインなしでそのまま動かしてみましょう。手順は<a href="http://wiki.bukkit.org/Setting_up_a_server">Setting up a server &ndash; BukkitWiki</a>に書かれています。手順といっても、ダウンロードして実行するだけです。</p>
+
+<h3>1-1. ダウンロード</h3>
+
+<p>一般的なオープンソースのソフトウェアと同様に安定版と開発版がありますが、安定版は<a href="https://dl.bukkit.org/downloads/craftbukkit/list/rb/">CraftBukkit | Bukkit</a>からダウンロードできます。バージョン番号はMinecraftのものと対応します。つまり、1.6.2のCraftBukkitを使うときは、Minecraft（クライアント）も1.6.2で起動しなければなりません（後述）。</p>
+
+<h3>1-2. 起動</h3>
+
+<p>ダウンロードしたら<a href="http://wiki.bukkit.org/Setting_up_a_server">Setting up a server &ndash; BukkitWiki</a>に書かれてるjavaコマンドで起動しましょう。ここではダウンロードしたファイルを<code>~/Desktop/server/craftbukkit.jar</code>に改名したと仮定します。</p>
+
+<pre><code>java -Xmx1024M -jar ~/Desktop/server/craftbukkit.jar -o true
+</code></pre>
+
+<p>数十行のメッセージの後にコマンドプロンプトが表示されて入力待ちになります。これでMinecraftクライアントから接続できるはずです。</p>
+
+<h3>1-3. 接続</h3>
+
+<p>MinecraftはProfileを編集することで起動するバージョンを選択できますが、<strong>CraftBukkitと同じバージョンを選ぶ</strong>のを忘れないでください。MinecraftLauncherの画面で「Edit Profile」ボタンを押して、「Use version」ドロップダウンリストの中から選べます。</p>
+
+<p>Minecraftが起動したら「マルチプレイ」を選択し、「サーバー追加」を押します。「サーバーアドレス」に<code>localhost</code>と書いて「完了」を押せば、サーバ一覧にCraftBukkitサーバが現れるはずです。それを選択して「サーバーに接続」しましょう。</p>
+
+<p>本物のMinecraftと同じようにゲームを始められれば大丈夫です。切断し、CraftBukkitのコマンドプロンプトで<code>stop</code>を実行して終了してください。</p>
+
+<h2>2. JDK</h2>
+
+<p>プラグインをコンパイルするためにJava SE Development Kitが必要です。<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Java SE &ndash; Downloads</a>からダウンロード、インストールしてください。以下のようにjavacが実行できれば大丈夫です（実行結果は違うかもしれません）。</p>
+
+<pre><code>$ javac -version
+javac 1.6.0_65
+</code></pre>
+
+<h2>3. プラグインのコンパイルとインストール</h2>
+
+<p>いよいよプラグインをインストールします。ここでは私が実験的に作った<a href="https://github.com/irohiroki/ChickenLauncher">ChickenLauncher</a>を使って説明します。</p>
+
+<h3>3-1. ダウンロード</h3>
+
+<p><a href="https://github.com/irohiroki/ChickenLauncher/archive/master.zip">zipファイルをダウンロード</a>できます。GitHubをご存知の方は、もちろん好きな方法でダウンロードして構いません。</p>
+
+<h3>3-2. コンパイル</h3>
+
+<p>コンパイル方法は<a href="https://github.com/irohiroki/ChickenLauncher/blob/master/README.md">README</a>に書いてある通りです。つまり、下のようなjavacコマンドを実行します：</p>
+
+<pre><code>javac src/*.java -d bin -classpath ~/Desktop/server/craftbukkit.jar -sourcepath src
+</code></pre>
+
+<p><code>bin/chickenlauncher/ChickenLauncher.class</code>が生成されるはずです。プラグインとしてはこれをjarファイルにする必要があります。コマンドは下の通りです。</p>
+
+<pre><code>jar -cf dist/ChickenLauncher.jar *.yml -C bin .
+</code></pre>
+
+<p><code>dist/ChickenLauncher.jar</code>が生成されます。</p>
+
+<h3>3-3. インストール</h3>
+
+<p>CraftBukkitにはプラグイン用のディレクトリがあり、そこにjarファイルを入れれば完了です。プラグイン用のディレクトリはCraftBukkitを起動したときにcraftbukkit.jarと同じディレクトリに<code>plugins</code>という名前で生成されているはずです。前出の例だと、次のようになります。</p>
+
+<pre><code>cp dist/ChickenLauncher.jar ~/Desktop/server/plugins
+</code></pre>
+
+<p>これで完了です。最初と同じようにCraftBukkitを起動し、羊毛を手に持って空中を左クリックしてみてください。羊毛からニワトリが飛び出すはずです。</p>
+
+<iframe width="560" height="315" src="//www.youtube.com/embed/IHxXTrZ6i-M" frameborder="0" allowfullscreen></iframe>
+
+
+<p>なお、ゲームをクリエイティブモードにするには、CraftBukkitのコンソールで下のコマンドを実行します。</p>
+
+<pre><code>gamemode creative ユーザ名
+</code></pre>
+
+<h2>クライアントを改造したい？</h2>
+
+<p>以上のように、CraftBukkitを使うとMODに比べて安心してMinecraftを拡張できるのですが、変えられるのはサーバ側だけになります。つまり、新しいキーバインディングを設定したりアイテムの見た目を変更したりはできません。</p>
+
+<p>でも落胆しないでください。CraftBukkitと対になるクライアント側のソフトとして、<a href="http://spoutcraft.org/">SpoutCraft</a>があります。これはクライアントを拡張するMODですが、特徴的なのは拡張モジュールをサーバ側のCraftBukkitからロードすることです。つまり、サーバにプラグインを置くと、自動的にクライアントに配信・インストールされるのです。これでクライアント側を改造できるだけでなく、仲間内でサーバを立てて遊ぶときにとても便利になるでしょう。今後、SpoutCraftについても検証して紹介したいと思います。</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hiroki Yoshioka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-18T19:10:42+09:00" pubdate data-updated="true">Feb 18<span>th</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/minecraft/'>Minecraft</a>, <a class='category' href='/blog/categories/plugin/'>plugin</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://irohiroki.github.io/blog/2014/02/18/craftbukkit-plugin-chicken-launcher/" data-via="" data-counturl="http://irohiroki.github.io/blog/2014/02/18/craftbukkit-plugin-chicken-launcher/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/02/16/craftbukkit-plugin-chicken-launcher/" title="Previous Post: Craftbukkit Plugin Chicken Launcher">&laquo; Craftbukkit Plugin Chicken Launcher</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/02/18/craftbukkit-plugin-chicken-launcher/">Minecraftプラグインを書いて動かすまで</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/16/craftbukkit-plugin-chicken-launcher/">Craftbukkit Plugin Chicken Launcher</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/25/pattern-language-talk-event-2014-01-23/">『パターン・ランゲージ』刊行記念トークイベントで聞いた「部分と全体」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/13/sublime-texts-multiple-selection-and-me/">おれとさぶらいむてきすとの複数選択</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/09/deep-level-creative-act-in-coding/">コーディングにおける「深いレベルの『創造』」について</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Hiroki Yoshioka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
