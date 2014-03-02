@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Minecraft(CraftBukkit)プラグイン作り方動画 - irohiroki's blog 2</title>
+  <meta name="author" content="Hiroki Yoshioka">
+
+  
+  <meta name="description" content="Minecraftプラグインを書いて動かすまでで紹介した手順のうち、分かりにくいところをgifアニメにしました。 1-2.のCraftBukkit起動 Windows 7で、run.batという起動用バッチファイルを作るところ。 run.batでCraftBukkitを起動するところ。 &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://irohiroki.github.io/blog/2014/03/02/minecraft-craftbukkit-plugin-development-how-to-video">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="irohiroki's blog 2" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">irohiroki's blog 2</a></h1>
+  
+    <h2>Web apps and Geekies</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:irohiroki.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Minecraft(CraftBukkit)プラグイン作り方動画</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-02T08:50:05+09:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2014</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p><a href="http://irohiroki.github.io/blog/2014/02/18/craftbukkit-plugin-chicken-launcher/">Minecraftプラグインを書いて動かすまで</a>で紹介した手順のうち、分かりにくいところをgifアニメにしました。</p>
+
+<h3>1-2.のCraftBukkit起動</h3>
+
+<p>Windows 7で、run.batという起動用バッチファイルを作るところ。</p>
+
+<p><img src="/images/make-run_bat.gif" alt="run.bat作成" /></p>
+
+<p>run.batでCraftBukkitを起動するところ。途中でセキュリティに関する確認があります。</p>
+
+<p><img src="/images/exec-run_bat.gif" alt="CraftBukkit起動" /></p>
+
+<h3>1-3.のCraftBukkit接続</h3>
+
+<p>CraftBukkitは本物のMinecraftよりバージョンが低いので、Minecraftクライアントのバージョンを合わせる必要があります。その手順。</p>
+
+<p><img src="/images/change-minecraft-client-version.gif" alt="Minecraftのバージョン変更" /></p>
+
+<p>サーバを追加して接続するところ。</p>
+
+<p><img src="/images/add-craftbukkit-server.gif" alt="CraftBukkitサーバに接続" /></p>
+
+<h3>2.のJDKのセットアップ</h3>
+
+<p>最大の難関、WindowsでJavaのbinをPATHに追加する手順。</p>
+
+<p><img src="/images/add-java-bin-to-path.gif" alt="JavaのbinフォルダをPATH環境変数に追加" /></p>
+
+<h3>3.のプラグイン作成</h3>
+
+<p>ソースコードを入れるsrcフォルダを作るところ。デスクトップに<code>server¥ChickenLauncher¥src</code>という階層で作ります。</p>
+
+<p><img src="/images/make-src-dir.gif" alt="srcフォルダを作る" /></p>
+
+<p>なお、Windowsでは下のスクリプトを<code>server¥ChickenLauncher¥build.bat</code>として作っておくと捗りそうです。</p>
+
+<pre><code>set NAME=ChickenLauncher
+set SERVER_DIR=%USERPROFILE%\Desktop\server
+
+mkdir bin
+mkdir dist
+javac src\*.java -d bin -classpath %SERVER_DIR%\craftbukkit.jar -sourcepath src
+jar -cf dist\%NAME%.jar *.yml -C bin .
+copy dist\%NAME%.jar %SERVER_DIR%\plugins
+pause
+</code></pre>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Hiroki Yoshioka</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-03-02T08:50:05+09:00" pubdate data-updated="true">Mar 2<span>nd</span>, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/blog/categories/craftbukkit/'>CraftBukkit</a>, <a class='category' href='/blog/categories/minecraft/'>Minecraft</a>, <a class='category' href='/blog/categories/plugin/'>plugin</a>, <a class='category' href='/blog/categories/video/'>video</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://irohiroki.github.io/blog/2014/03/02/minecraft-craftbukkit-plugin-development-how-to-video/" data-via="" data-counturl="http://irohiroki.github.io/blog/2014/03/02/minecraft-craftbukkit-plugin-development-how-to-video/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2014/02/18/craftbukkit-plugin-chicken-launcher/" title="Previous Post: Minecraftプラグインを書いて動かすまで">&laquo; Minecraftプラグインを書いて動かすまで</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2014/03/02/minecraft-craftbukkit-plugin-development-how-to-video/">Minecraft(CraftBukkit)プラグイン作り方動画</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/02/18/craftbukkit-plugin-chicken-launcher/">Minecraftプラグインを書いて動かすまで</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2014/01/25/pattern-language-talk-event-2014-01-23/">『パターン・ランゲージ』刊行記念トークイベントで聞いた「部分と全体」</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/13/sublime-texts-multiple-selection-and-me/">おれとさぶらいむてきすとの複数選択</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/12/09/deep-level-creative-act-in-coding/">コーディングにおける「深いレベルの『創造』」について</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Hiroki Yoshioka -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

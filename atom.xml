@@ -4,7 +4,7 @@
   <title><![CDATA[irohiroki's blog 2]]></title>
   <link href="http://irohiroki.github.io/atom.xml" rel="self"/>
   <link href="http://irohiroki.github.io/"/>
-  <updated>2014-02-18T19:19:44+09:00</updated>
+  <updated>2014-03-02T09:22:08+09:00</updated>
   <id>http://irohiroki.github.io/</id>
   <author>
     <name><![CDATA[Hiroki Yoshioka]]></name>
@@ -12,6 +12,60 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Minecraft(CraftBukkit)プラグイン作り方動画]]></title>
+    <link href="http://irohiroki.github.io/blog/2014/03/02/minecraft-craftbukkit-plugin-development-how-to-video/"/>
+    <updated>2014-03-02T08:50:05+09:00</updated>
+    <id>http://irohiroki.github.io/blog/2014/03/02/minecraft-craftbukkit-plugin-development-how-to-video</id>
+    <content type="html"><![CDATA[<p><a href="http://irohiroki.github.io/blog/2014/02/18/craftbukkit-plugin-chicken-launcher/">Minecraftプラグインを書いて動かすまで</a>で紹介した手順のうち、分かりにくいところをgifアニメにしました。</p>
+
+<h3>1-2.のCraftBukkit起動</h3>
+
+<p>Windows 7で、run.batという起動用バッチファイルを作るところ。</p>
+
+<p><img src="http://irohiroki.github.io/images/make-run_bat.gif" alt="run.bat作成" /></p>
+
+<p>run.batでCraftBukkitを起動するところ。途中でセキュリティに関する確認があります。</p>
+
+<p><img src="http://irohiroki.github.io/images/exec-run_bat.gif" alt="CraftBukkit起動" /></p>
+
+<h3>1-3.のCraftBukkit接続</h3>
+
+<p>CraftBukkitは本物のMinecraftよりバージョンが低いので、Minecraftクライアントのバージョンを合わせる必要があります。その手順。</p>
+
+<p><img src="http://irohiroki.github.io/images/change-minecraft-client-version.gif" alt="Minecraftのバージョン変更" /></p>
+
+<p>サーバを追加して接続するところ。</p>
+
+<p><img src="http://irohiroki.github.io/images/add-craftbukkit-server.gif" alt="CraftBukkitサーバに接続" /></p>
+
+<h3>2.のJDKのセットアップ</h3>
+
+<p>最大の難関、WindowsでJavaのbinをPATHに追加する手順。</p>
+
+<p><img src="http://irohiroki.github.io/images/add-java-bin-to-path.gif" alt="JavaのbinフォルダをPATH環境変数に追加" /></p>
+
+<h3>3.のプラグイン作成</h3>
+
+<p>ソースコードを入れるsrcフォルダを作るところ。デスクトップに<code>server¥ChickenLauncher¥src</code>という階層で作ります。</p>
+
+<p><img src="http://irohiroki.github.io/images/make-src-dir.gif" alt="srcフォルダを作る" /></p>
+
+<p>なお、Windowsでは下のスクリプトを<code>server¥ChickenLauncher¥build.bat</code>として作っておくと捗りそうです。</p>
+
+<pre><code>set NAME=ChickenLauncher
+set SERVER_DIR=%USERPROFILE%\Desktop\server
+
+mkdir bin
+mkdir dist
+javac src\*.java -d bin -classpath %SERVER_DIR%\craftbukkit.jar -sourcepath src
+jar -cf dist\%NAME%.jar *.yml -C bin .
+copy dist\%NAME%.jar %SERVER_DIR%\plugins
+pause
+</code></pre>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Minecraftプラグインを書いて動かすまで]]></title>
